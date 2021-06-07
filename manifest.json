@@ -1,0 +1,13 @@
+{
+  "name": "Cyberbullying Detection",
+  "version": "0.0.1",
+  "description": "Find offensive user and offensive comments in your social media like Facebook and Instagram",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "demo.html",
+    "default_icon": "images/logo.png"
+  },
+  "permissions":[
+    "storage"
+  ]
+}
