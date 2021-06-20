@@ -23,7 +23,7 @@
 
   "content_scripts" : [
     {
-      "matches" : ["https://www.instagram.com/*","https://www.instagram.com/p*"],
+      "matches" : ["https://www.instagram.com/*"],
       "js" : ["content.js", "jquery-3.6.0.min.js"],
       "css": ["content.css"]
     }
@@ -32,7 +32,6 @@
   "permissions" : [
     "storage",
     "tabs",
-    "https://www.instagram.com/*",
-    "https://www.instagram.com/p*"
+    "https://www.instagram.com/*"
   ]
 }

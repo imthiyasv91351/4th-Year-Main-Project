@@ -1,8 +1,35 @@
+// to work it when click on offensive users in extension
+
 $("#showUsers").click(function(){
   chrome.tabs.query({active: true, currentWindow: true},function(tabs){
     chrome.tabs.sendMessage(tabs[0].id, {action: "showUsers"});
   });
 });
+
+// giving toggle action to the teenage mode
+
+document.addEventListener('DOMContentLoaded', function () {
+  var checkbox = document.querySelector('input[type="checkbox"]');
+
+  checkbox.addEventListener('change', function () {
+    if (checkbox.checked) {
+      // do this
+      chrome.tabs.query({active: true, currentWindow: true},function(tabs){
+        chrome.tabs.sendMessage(tabs[0].id, {action: "DOMContentLoaded"});
+      });
+      console.log('checked');
+    } else {
+      // do that
+      console.log('Not checked');
+    }
+  });
+});
+
+
+
+//API connect here...
+
+// taking the response of comments from ML model
 
 let response = [{
     "username": "Imthiyas",
@@ -21,10 +48,13 @@ let response = [{
   }
 ]
 
-// ############ getting responses ####################
+// ############ getting responses to the extension ####################
 
 $.each(response, function(index, value) {
-  $("#displayUser").append("<div class='container1'><div class='row'><div class='test'><button class='collapsible'>"+value.username+"</button><div class='content1'><p>"+value.comment+"</p></div></div></div></div>");
+  if(value.isOffensive == true){
+    $("#displayUser").append("<div class='container1'><div class='row'><div class='test'><button class='collapsible'>"+value.username+"</button><div class='content1'><p>"+value.comment+"</p></div></div></div></div>");
+  }
+
 });
 
 // #########################       List Action       ####################
@@ -44,58 +74,3 @@ for (i = 0; i < coll.length; i++) {
     }
   });
 }
-
-
-
-
-
-
-
-
-
-// #########################      Hello world       ####################
-
-// $(function(){
-//   $('#name').keyup(function(){
-//     $('#greet').text('Hello ' + $('#name').val());
-//   })
-// })
-
-// #########################       Budget manager       ####################
-
-// $(function(){
-//
-//   chrome.storage.sync.get(['total','limit'],function(budget){
-//     $('#total').text(budget.total);
-//     $('#limit').text(budget.limit);
-//   })
-//
-//   $('#spendAmount').click(function(){
-//     chrome.storage.sync.get(['total','limit'],function(budget){
-//       var newTotal = 0;
-//       if(budget.total){
-//         newTotal += parseInt(budget.total);
-//       }
-//
-//       var amount = $('#amount').val();
-//       if (amount) {
-//         newTotal += parseInt(amount);
-//       }
-//
-//       chrome.storage.sync.set({'total' : newTotal}, function(){
-//         if(amount && newTotal >= budget.limit){
-//           var notifOption = {
-//             type: 'basic',
-//             iconUrl: "icon48.png",
-//             title: "Limit reached!",
-//             message: "Oh, no! Looks like you have reached your limit!"
-//           };
-//           chrome.notifications.create('limitNotif', notifOption);
-//         }
-//       });
-//
-//       $('#total').text(newTotal);
-//       $('#amount').val('');
-//     });
-//   });
-// });
