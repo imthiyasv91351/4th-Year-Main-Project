@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "Find offensive user and offensive comments in your social media like Facebook and Instagram",
   "manifest_version": 2,
-  "icons" : {
-    "128" : "icon128.png",
-    "48" : "icon48.png",
-    "16" : "icon16.png"
+  "icons": {
+    "128": "icon128.png",
+    "48": "icon48.png",
+    "16": "icon16.png"
   },
   "page_action": {
     "default_popup": "demo.html",
@@ -14,24 +14,20 @@
     "default_title": "CyberbullyingDetection"
   },
 
-  "options_page" : "options.html",
+  "options_page": "options.html",
 
-  "background" : {
-    "scripts" : ["eventPage.js"],
-    "persistent" : false
+  "background": {
+    "scripts": ["eventPage.js"],
+    "persistent": false
   },
 
-  "content_scripts" : [
+  "content_scripts": [
     {
-      "matches" : ["https://www.instagram.com/*"],
-      "js" : ["content.js", "jquery-3.6.0.min.js"],
+      "matches": ["https://www.instagram.com/*"],
+      "js": ["content.js", "jquery-3.6.0.min.js", "sweetalert.min.js"],
       "css": ["content.css"]
     }
   ],
 
-  "permissions" : [
-    "storage",
-    "tabs",
-    "https://www.instagram.com/*"
-  ]
+  "permissions": ["storage", "tabs", "https://www.instagram.com/*"]
 }
