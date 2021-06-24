@@ -11,14 +11,22 @@ const commentSet = ["this picture is so weird", "Your have so dark skin", "Your 
 
 
 
+
 (function myLoop(i) {
   setTimeout(function() {
     let p = document.querySelectorAll('[aria-label="Load more comments"]');
   if(!!p[0]){p[0].click();}
     if (--i) myLoop(i);   //  decrement i and call myLoop again if i > 0
   }, 1000)
-})(20);                //  pass the number of iterations as an argument
+})(20);                // "" pass the number of iterations as an argument
 
+function commentsPredict(comments) {
+  for (let i = 0; i < comments.length; i++) {
+    comments[i].isOffensive = commentSet.includes(comments[i]['comment']);
+  }
+  console.log("50",comments);
+  return comments;
+ }
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
 if(request.action == "showUsers"){
@@ -39,28 +47,13 @@ if(request.action == "showUsers"){
     };
     comments.push(tempObject);
   }
-  console.log(comments);
+  console.log("line43",comments);
 
+
+ let predicted = commentsPredict(comments);
+ sendResponse(predicted);
+ chrome.storage.local.set({count: "count"});
 }
-
-// function resultPopup(comments){
-//   for(let j = 0; j < comments.length; j++){
-//
-//   }
-// }
-
-function commentsPredict(comments) {
-  for (let i = 0; i < comments.length; i++) {
-    comments[i].isOffensive = commentSet.includes(comments[i]['comment']);
-  }
- }
-
-
-
- // chrome.tabs.query({active: true, currentWindow: true},function(tabs){
- //   chrome.runtime.sendMessage(tabs[0].id, comments, {action: "result"});
- // });
-
 
 });
 

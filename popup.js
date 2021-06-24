@@ -1,13 +1,28 @@
 // to work it when click on offensive users in extension
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-  console.log(request);
-});
+// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+//   console.log(request);
+// });
+
 
 
 $("#showUsers").click(function(){
   chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-    chrome.tabs.sendMessage(tabs[0].id, {action: "showUsers"});
+    chrome.tabs.sendMessage(tabs[0].id, {action: "showUsers"},function(data){
+      console.log("popup",data);
+      $.each(data, function(index, value) {
+        if(value.isOffensive == true){
+          $("#displayUser").append("<div class='container1'><div class='row'><div class='test'><button class='collapsible'>"+value.username+"</button><div class='content1'><p>"+value.comment+"</p></div></div></div></div>");
+        }
+      });
+    });
+    chrome.storage.local.get("count", function(data) {
+    if(typeof data.count == "undefined") {
+        // That's kind of bad
+    } else {
+        console.log(data);
+    }
+});
   });
 });
 
@@ -45,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
 // taking the response of comments from ML model
 
 
-
+//
 // let response = [{
 //     "username": "Imthiyas",
 //     "comment": "super pic",
@@ -57,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function () {
 //     "isOffensive": true
 //   },
 //   {
-//  showUsers   "username": "mr_xyz",
 //     "comment": "nyc pic",
 //     "isOffensive": false
 //   }
@@ -65,9 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ############ getting responses to the extension ####################
 
-// $.each(comments, function(index, value) {
-//     $("#displayUser").append("<div class='container1'><div class='row'><div class='test'><button class='collapsible'>"+value.username+"</button><div class='content1'><p>"+value.comment+"</p></div></div></div></div>");
-// });
+
 
 // #########################       List Action       ####################
 
