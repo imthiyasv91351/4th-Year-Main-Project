@@ -1,5 +1,10 @@
 // to work it when click on offensive users in extension
 
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+  console.log(request);
+});
+
+
 $("#showUsers").click(function(){
   chrome.tabs.query({active: true, currentWindow: true},function(tabs){
     chrome.tabs.sendMessage(tabs[0].id, {action: "showUsers"});
@@ -29,33 +34,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 //API connect here...
 
+
+
+// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
+// if(request.action == "result"){
+//   console.log(comments);
+//   }
+// });
+
 // taking the response of comments from ML model
 
-let response = [{
-    "username": "Imthiyas",
-    "comment": "super pic",
-    "isOffensive": false
-  },
-  {
-    "username": "mr_abc",
-    "comment": "f**ck",
-    "isOffensive": true
-  },
-  {
-    "username": "mr_xyz",
-    "comment": "nyc pic",
-    "isOffensive": false
-  }
-]
+
+
+// let response = [{
+//     "username": "Imthiyas",
+//     "comment": "super pic",
+//     "isOffensive": false
+//   },
+//   {
+//     "username": "mr_abc",
+//     "comment": "f***k",
+//     "isOffensive": true
+//   },
+//   {
+//  showUsers   "username": "mr_xyz",
+//     "comment": "nyc pic",
+//     "isOffensive": false
+//   }
+// ]
 
 // ############ getting responses to the extension ####################
 
-$.each(response, function(index, value) {
-  if(value.isOffensive == true){
-    $("#displayUser").append("<div class='container1'><div class='row'><div class='test'><button class='collapsible'>"+value.username+"</button><div class='content1'><p>"+value.comment+"</p></div></div></div></div>");
-  }
-
-});
+// $.each(comments, function(index, value) {
+//     $("#displayUser").append("<div class='container1'><div class='row'><div class='test'><button class='collapsible'>"+value.username+"</button><div class='content1'><p>"+value.comment+"</p></div></div></div></div>");
+// });
 
 // #########################       List Action       ####################
 
