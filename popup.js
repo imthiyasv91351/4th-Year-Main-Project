@@ -4,52 +4,59 @@
 //   console.log(request);
 // });
 
-
-
-$("#showUsers").click(function(){
-  chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-    chrome.tabs.sendMessage(tabs[0].id, {action: "showUsers"},function(data){
-      console.log("popup",data);
-      $.each(data, function(index, value) {
-        if(value.isOffensive == true){
-          $("#displayUser").append("<div class='container1'><div class='row'><div class='test'><button class='collapsible'>"+value.username+"</button><div class='content1'><p>"+value.comment+"</p></div></div></div></div>");
-        }
-      });
-    });
-    chrome.storage.local.get("count", function(data) {
-    if(typeof data.count == "undefined") {
+$("#showUsers").click(function () {
+  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+    chrome.tabs.sendMessage(
+      tabs[0].id,
+      { action: "showUsers" },
+      function (data) {
+        console.log("popup", data);
+        $("#displayUser").empty();
+        $.each(data, function (index, value) {
+          if (value.isOffensive == true) {
+            $("#displayUser").append(
+              "<div class='container1'><div class='row'><div class='test'><p class='tp-username'><a href='https://www.instagram.com/" +
+                value.username +
+                "' target='_blank'>" +
+                value.username +
+                "</a></p><div><p class='tp-comment'>" +
+                value.comment +
+                "</p></div></div></div></div>"
+            );
+          }
+        });
+      }
+    );
+    chrome.storage.local.get("count", function (data) {
+      if (typeof data.count == "undefined") {
         // That's kind of bad
-    } else {
+      } else {
         console.log(data);
-    }
-});
+      }
+    });
   });
 });
 
 // giving toggle action to the teenage mode
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   var checkbox = document.querySelector('input[type="checkbox"]');
 
-  checkbox.addEventListener('change', function () {
+  checkbox.addEventListener("change", function () {
     if (checkbox.checked) {
       // do this
-      chrome.tabs.query({active: true, currentWindow: true},function(tabs){
-        chrome.tabs.sendMessage(tabs[0].id, {action: "DOMContentLoaded"});
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "DOMContentLoaded" });
       });
-      console.log('checked');
+      console.log("checked");
     } else {
       // do that
-      console.log('Not checked');
+      console.log("Not checked");
     }
   });
 });
 
-
-
 //API connect here...
-
-
 
 // chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
 // if(request.action == "result"){
@@ -58,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
 // });
 
 // taking the response of comments from ML model
-
 
 //
 // let response = [{
@@ -79,19 +85,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // ############ getting responses to the extension ####################
 
-
-
 // #########################       List Action       ####################
-
 
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
 for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
+  coll[i].addEventListener("click", function () {
     this.classList.toggle("active");
     var content1 = this.nextElementSibling;
-    if (content1.style.maxHeight){
+    if (content1.style.maxHeight) {
       content1.style.maxHeight = null;
     } else {
       content1.style.maxHeight = content1.scrollHeight + "px";
