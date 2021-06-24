@@ -1,34 +1,68 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>Cyberbullying Detector</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="jquery-3.6.0.min.js"></script>
+    <style>
+      .btnShowOffensive {
+        width: 100%;
+        height: 30px;
+        background: #212529;
+        color: white;
+        outline: none;
+        border-radius: 5px;
+        border: none;
+      }
+      #displayUser {
+        margin-top: 10px;
+        border-top: 1px dotted gray;
+        padding-top: 5px;
+      }
+      .tp-username {
+        text-align: center;
+        margin-top: 0px;
+        font-weight: 600;
+        background: #272323;
+        padding: 8px 10px;
+        margin-top: 0px;
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 10px;
+      }
+      .tp-username a {
+        color: white;
+      }
+      .tp-comment {
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <header>
       <h2>Cyberbullying Detector</h2>
     </header>
-    <hr>
+    <hr />
     <div class="content">
       <div class="toggleArea">
         <span>Normal mode</span>
         <span>
           <label class="switch">
-            <input type="checkbox">
+            <input type="checkbox" />
             <span class="slider round"></span>
           </label>
         </span>
         <span class="rightAllign">Teenage mode</span>
       </div>
-      <hr>
+      <hr />
       <div class="container">
         <div class="row">
           <div class="test">
-              <button class="collapsible" id='showUsers'>Show offensive users</button>
-              <div class="content1" id="displayUser">              
-              </div>
+            <button class="btnShowOffensive" id="showUsers">
+              Show offensive users
+            </button>
+            <div class="" id="displayUser"></div>
           </div>
         </div>
       </div>
